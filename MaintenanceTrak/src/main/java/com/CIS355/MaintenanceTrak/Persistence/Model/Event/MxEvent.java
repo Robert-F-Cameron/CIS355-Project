@@ -1,5 +1,6 @@
 package com.CIS355.MaintenanceTrak.Persistence.Model.Event;
 
+import com.CIS355.MaintenanceTrak.Persistence.Model.Equipment.Equipment;
 import com.CIS355.MaintenanceTrak.Persistence.Model.User.User;
 
 import javax.persistence.*;
@@ -10,7 +11,7 @@ import java.util.Date;
 public class MxEvent {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     @Column(name ="name")
     private String name;
@@ -24,11 +25,14 @@ public class MxEvent {
     @Column(name = "dateClosed")
     private Date dateClosed;
 
-    @Column(name = "openedBy")
+    @OneToOne(targetEntity = User.class, mappedBy = "openedMxEvents")
     private User openedBy;
 
-    @Column(name = "closedBy")
+    @OneToOne(targetEntity = User.class, mappedBy = "closedMxEvents")
     private User closedBy;
+
+    @ManyToOne(targetEntity = Equipment.class)
+    private Equipment equipment;
 
     public MxEvent() {
     }
@@ -90,5 +94,9 @@ public class MxEvent {
 
     public void setClosedBy(User closedBy) {
         this.closedBy = closedBy;
+    }
+
+    public Equipment getEquipment(){
+        return equipment;
     }
 }

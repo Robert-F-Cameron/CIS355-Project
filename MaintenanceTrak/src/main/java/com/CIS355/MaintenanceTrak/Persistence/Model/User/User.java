@@ -1,6 +1,9 @@
 package com.CIS355.MaintenanceTrak.Persistence.Model.User;
 
+import com.CIS355.MaintenanceTrak.Persistence.Model.Event.MxEvent;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Users")
@@ -8,7 +11,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     @Column(name = "username")
     private String username;
@@ -22,19 +25,24 @@ public class User {
     @Column(name="password")
     private String password;
 
-    @Column(name ="role")
-    private Role role;
+    @ManyToOne(targetEntity = MxEvent.class)
+    private List<MxEvent> openedMxEvents;
+
+    @ManyToOne(targetEntity = MxEvent.class)
+    private List<MxEvent> closedMxEvents;
+
+    //TODO: Figure out how to add roles for each user.
+//    private Role role;
 
     public User() {
     }
 
-    public User(long id, String username, String firstName, String lastName, String password, Role role) {
+    public User(long id, String username, String firstName, String lastName, String password) {
         this.id = id;
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
-        this.role = role;
     }
 
     public long getId() {
@@ -73,11 +81,4 @@ public class User {
         this.password = password;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
 }

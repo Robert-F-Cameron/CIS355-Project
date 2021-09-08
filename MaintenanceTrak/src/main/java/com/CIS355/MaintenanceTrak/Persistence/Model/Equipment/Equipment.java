@@ -3,6 +3,7 @@ package com.CIS355.MaintenanceTrak.Persistence.Model.Equipment;
 import com.CIS355.MaintenanceTrak.Persistence.Model.Event.MxEvent;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Equipment")
@@ -10,7 +11,7 @@ public class Equipment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     @Column(name = "equipmentId")
     private String equipmentId;
@@ -24,14 +25,13 @@ public class Equipment {
     @Column(name = "deployed")
     private Boolean deployed;
 
-    @Column(name="events")
-    private MxEvent events;
+    @OneToMany(targetEntity = MxEvent.class)
+    private List<MxEvent> events;
 
     public Equipment() {
     }
 
-    public Equipment(long id, String equipmentId, String name, String equipmentLocation, Boolean deployed) {
-        this.id = id;
+    public Equipment(String equipmentId, String name, String equipmentLocation, Boolean deployed) {
         this.equipmentId = equipmentId;
         this.name = name;
         this.equipmentLocation = equipmentLocation;
@@ -40,10 +40,6 @@ public class Equipment {
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getEquipmentId() {
@@ -78,11 +74,11 @@ public class Equipment {
         this.deployed = deployed;
     }
 
-    public MxEvent getEvents() {
+    public List<MxEvent> getEvents() {
         return events;
     }
 
-    public void setEvents(MxEvent events) {
+    public void setEvents(List<MxEvent> events) {
         this.events = events;
     }
 }
