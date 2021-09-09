@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name="Multiplexer")
 public class Multiplexer extends Equipment{
     @Column(name="type")
     private String type;
@@ -15,6 +14,9 @@ public class Multiplexer extends Equipment{
     @OneToMany
     @JoinColumn(name="cardId")
     private List<Card> cards;
+
+    public Multiplexer() {
+    }
 
     public Multiplexer(String type, Integer numCards) {
         this.type = type;

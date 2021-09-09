@@ -3,7 +3,6 @@ package com.CIS355.MaintenanceTrak.Persistence.Model.Equipment;
 import javax.persistence.*;
 
 @Entity
-@Table(name="Antenna")
 public class Antenna extends Equipment{
 
     @Column(name ="type")
