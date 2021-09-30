@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<DialogPane prefHeight="212.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.MaintenanceTrak.MaintenanceTrak.Ui.Equipment.EquipmentDialogController">
+   <content>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="184.0" prefWidth="300.0">
+                  <Label layoutX="88.0" layoutY="1.0" text="Add Equipment">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+          <VBox layoutX="25.0" layoutY="40.0" prefHeight="154.0" prefWidth="250.0">
+              <HBox prefHeight="30.0" prefWidth="180.0">
+                  <Label prefHeight="17.0" prefWidth="80.0" text="Equipment Id:"/>
+                  <TextField fx:id="tfEquipmentId" prefHeight="25.0" prefWidth="175.0"/>
+              </HBox>
+              <HBox prefHeight="30.0" prefWidth="250.0">
+                  <Label prefHeight="17.0" prefWidth="80.0" text="Name:"/>
+                  <TextField fx:id="tfName" prefHeight="25.0" prefWidth="175.0"/>
+              </HBox>
+              <HBox prefHeight="43.0" prefWidth="214.0">
+                  <Label prefHeight="41.0" prefWidth="80.0" text="Equipment Location:" wrapText="true"/>
+                  <TextField fx:id="tfEquipmentLocation" prefHeight="25.0" prefWidth="175.0">
+                      <HBox.margin>
+                          <Insets top="8.0"/>
+                      </HBox.margin>
+                  </TextField>
+              </HBox>
+              <HBox prefHeight="38.0" prefWidth="250.0">
+                  <CheckBox fx:id="cbDeployed" mnemonicParsing="false" text="Deployed?">
+                      <padding>
+                          <Insets left="100.0"/>
+                      </padding>
+                  </CheckBox>
+              </HBox>
+              <VBox alignment="BOTTOM_RIGHT" prefHeight="8.0" prefWidth="50.0">
+                  <FlowPane alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="200.0">
+                      <Button fx:id="addButton" alignment="CENTER_RIGHT" onAction="#addEquipment"
+                              prefHeight="25.0" prefWidth="33.0" text="OK" textAlignment="CENTER">
+                          <FlowPane.margin>
+                              <Insets left="10.0"/>
+                          </FlowPane.margin>
+                      </Button>
+                      <Button fx:id="deleteButton" alignment="TOP_RIGHT" managed="false" minWidth="49.0"
+                              mnemonicParsing="false" prefHeight="25.0" text="Delete" visible="false" onAction="#delete">
+                          <FlowPane.margin>
+                              <Insets left="10.0"/>
+                          </FlowPane.margin>
+                      </Button>
+                      <Button fx:id="cancelButton" alignment="CENTER_RIGHT" cancelButton="true"
+                              mnemonicParsing="false" onAction="#cancel" text="Cancel">
+                          <FlowPane.margin>
+                              <Insets left="10.0"/>
+                          </FlowPane.margin>
+                      </Button>
+                      <Label fx:id="lDatabaseId" managed="false" visible="false"/>
+                  </FlowPane>
+              </VBox>
+          </VBox>
+      </AnchorPane>
+   </content>
+</DialogPane>
