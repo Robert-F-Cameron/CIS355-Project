@@ -19,21 +19,20 @@ public class MxEvent {
     @Column(name = "dateOpened")
     private Date dateOpened;
 
-    @Column(name = "dateClosed")
-    private Date dateClosed;
-
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "equipment_id", nullable = false)
-    private Equipment equipment;
-
     @ManyToOne
     @JoinColumn(name = "opened_by_user_id")
     private User openedBy;
+
+    @Column(name = "dateClosed")
+    private Date dateClosed;
 
     @ManyToOne
     @JoinColumn(name = "closed_by_user_id")
     private User closedBy;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "equipment_id", nullable = false)
+    private Equipment equipment;
 
     public MxEvent() {
     }
@@ -44,12 +43,6 @@ public class MxEvent {
         this.dateOpened = dateOpened;
         this.openedBy = openedBy;
         this.equipment = equipment;
-    }
-
-    public MxEvent(String name, String description, Date dateOpened) {
-        this.name = name;
-        this.description = description;
-        this.dateOpened = dateOpened;
     }
 
     public long getId() {

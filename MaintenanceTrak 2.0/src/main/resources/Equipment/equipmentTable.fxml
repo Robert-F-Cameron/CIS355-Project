@@ -4,23 +4,18 @@
 <?import javafx.scene.layout.*?>
 
 <VBox fx:controller="com.MaintenanceTrak.MaintenanceTrak.Ui.Equipment.EquipmentTableController"
-      maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="800"
+      maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="800" prefWidth="800" prefHeight="600"
       xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
-   <ToolBar prefHeight="31.0" prefWidth="800.0">
-     <items>
-          <Button fx:id="button" alignment="CENTER" mnemonicParsing="false" onAction="#handleAdd" prefHeight="25.0" prefWidth="132.0" text="Add Equipment" textAlignment="CENTER" />
-     </items>
-   </ToolBar>
+    <ToolBar prefHeight="31.0" prefWidth="800.0">
+        <Button fx:id="button" alignment="CENTER" mnemonicParsing="false" onAction="#handleAdd" prefHeight="25.0"
+                prefWidth="132.0" text="Add Equipment" textAlignment="CENTER"/>
+    </ToolBar>
     <TableView fx:id="tableView">
         <columns>
-            <TableColumn fx:id="equipmentId" prefWidth="200" text="Equipment ID">
-            </TableColumn>
-            <TableColumn fx:id="name" prefWidth="200.0" text="Name">
-            </TableColumn>
-            <TableColumn fx:id="equipmentLocation" prefWidth="200.0" text="Location">
-            </TableColumn>
-            <TableColumn fx:id="deployed" prefWidth="200.0" text="Deployed">
-            </TableColumn>
+            <TableColumn fx:id="equipmentId" prefWidth="200" text="Equipment ID" />
+            <TableColumn fx:id="name" prefWidth="200.0" text="Name" />
+            <TableColumn fx:id="equipmentLocation" prefWidth="200.0" text="Location" />
+            <TableColumn fx:id="deployed" prefWidth="200.0" text="Deployed" />
         </columns>
     </TableView>
 </VBox>

@@ -27,8 +27,7 @@ public class EquipmentTableController {
         this.equipmentRepository = equipmentRepository;
         this.fxWeaver = fxWeaver;
     }
-    @FXML
-    private TableView<Equipment> tableView;
+    @FXML private TableView<Equipment> tableView;
     @FXML private TableColumn<Equipment, String> equipmentId;
     @FXML private TableColumn<Equipment, String> name;
     @FXML private TableColumn<Equipment, String> equipmentLocation;
@@ -87,10 +86,5 @@ public class EquipmentTableController {
         equipmentDialogController.loadExisting(equipment);
         equipmentControllerDialog.setDialogPane(dialogPane);
         equipmentControllerDialog.showAndWait();
-    }
-
-    public void getEquipmentList(){
-        list = FXCollections.observableArrayList(equipmentRepository.findAll());
-        System.out.println(equipmentRepository.findAll());
     }
 }
