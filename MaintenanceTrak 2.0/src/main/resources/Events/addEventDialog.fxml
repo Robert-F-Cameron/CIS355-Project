@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<DialogPane prefHeight="212.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.MaintenanceTrak.MaintenanceTrak.Ui.Equipment.EquipmentDialogController">
+<DialogPane prefHeight="212.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.MaintenanceTrak.MaintenanceTrak.Ui.Events.EventDialogController">
     <header>
         <Label alignment="CENTER" text="Add Event" textAlignment="CENTER">
             <font>
@@ -62,8 +62,8 @@
             </GridPane>
             <ButtonBar layoutX="532.0" layoutY="180.0" prefHeight="40.0" prefWidth="200.0">
               <buttons>
-                <Button mnemonicParsing="false" text="Submit" fx:id="submitButton" />
-                  <Button mnemonicParsing="false" text="Cancel" fx:id="cancelButton" />
+                <Button mnemonicParsing="false" text="Submit" fx:id="submitButton" onAction="#addEvent" />
+                  <Button mnemonicParsing="false" text="Cancel" fx:id="cancelButton" onAction="#cancel" />
               </buttons>
             </ButtonBar>
          </children></AnchorPane>

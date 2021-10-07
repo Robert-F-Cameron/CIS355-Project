@@ -1,10 +1,9 @@
 package com.MaintenanceTrak.MaintenanceTrak.Ui.Events;
 
-import com.MaintenanceTrak.MaintenanceTrak.Backend.Entities.Equipment;
+
 import com.MaintenanceTrak.MaintenanceTrak.Backend.Entities.MxEvent;
 import com.MaintenanceTrak.MaintenanceTrak.Backend.Entities.User;
 import com.MaintenanceTrak.MaintenanceTrak.Backend.Repositories.EventRepository;
-import com.MaintenanceTrak.MaintenanceTrak.Ui.Equipment.EquipmentDialogController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,18 +20,18 @@ import java.util.Date;
 
 @Component
 @FxmlView("/Events/eventTable.fxml")
-public class EventsTableController {
+public class EventTableController {
     @Autowired
     EventRepository eventRepository;
 
     private final FxWeaver fxWeaver;
 
-    public EventsTableController(EventRepository eventRepository, FxWeaver fxWeaver) {
+    public EventTableController(EventRepository eventRepository, FxWeaver fxWeaver) {
         this.eventRepository = eventRepository;
         this.fxWeaver = fxWeaver;
     }
 
-    @FXML private TableView<MxEvent> tableView;
+    @FXML private TableView<MxEvent> eventTableView;
     @FXML private TableColumn<MxEvent, String> equipmentId;
     @FXML private TableColumn<MxEvent, String> name;
     @FXML private TableColumn<MxEvent, String> description;
@@ -44,11 +43,11 @@ public class EventsTableController {
     public ObservableList<MxEvent> list = FXCollections.observableArrayList();
 
     @FXML
-    public Button button;
+    public Button addEventButton;
 
     @FXML
     public void initialize() throws IOException {
-        tableView.setRowFactory(equipment ->{
+        eventTableView.setRowFactory(mxEvent ->{
             TableRow<MxEvent> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if(event.getClickCount() == 2 && (!row.isEmpty())){
@@ -62,7 +61,7 @@ public class EventsTableController {
             });
             return row;
         });
-        button.setTooltip(new Tooltip("Select to add new equipment."));
+        addEventButton.setTooltip(new Tooltip("Select to add new Event."));
         equipmentId.setCellValueFactory(new PropertyValueFactory<MxEvent, String>("equipmentId"));
         name.setCellValueFactory(new PropertyValueFactory<MxEvent, String>("name"));
         description.setCellValueFactory(new PropertyValueFactory<MxEvent, String>("description"));
@@ -70,31 +69,31 @@ public class EventsTableController {
         openedBy.setCellValueFactory(new PropertyValueFactory<MxEvent, User>("openedBy"));
         dateClosed.setCellValueFactory(new PropertyValueFactory<MxEvent, Date>("dateClosed"));
         closedBy.setCellValueFactory(new PropertyValueFactory<MxEvent, User>("dateClosed"));
-        loadEquipment();
+        loadEvent();
     }
 
-    @FXML void loadEquipment(){
+    @FXML void loadEvent(){
         list.removeAll();
-        tableView.getItems().clear();
+        eventTableView.getItems().clear();
         list.addAll(eventRepository.findAll());
-        tableView.setItems(list);
+        eventTableView.setItems(list);
     }
 
     @FXML
-    void handleAdd(ActionEvent event) throws IOException {
-        Dialog<EquipmentDialogController> equipmentControllerDialog = new Dialog<>();
+    void handleAddEvent(ActionEvent event) throws IOException {
+        Dialog<EventDialogController> eventDialog = new Dialog<>();
         DialogPane dialogPane = fxWeaver.loadView(EventDialogController.class);
-        equipmentControllerDialog.setDialogPane(dialogPane);
-        equipmentControllerDialog.showAndWait();
+        eventDialog.setDialogPane(dialogPane);
+        eventDialog.showAndWait();
     }
 
     @FXML
     void handleEdit(MxEvent event) throws IOException {
-        EquipmentDialogController eventDialogController = fxWeaver.loadController(EventDialogController.class);
-        Dialog<EquipmentDialogController> equipmentControllerDialog = new Dialog<>();
+        EventDialogController eventDialogController = fxWeaver.loadController(EventDialogController.class);
+        Dialog<EventDialogController> eventDialog = new Dialog<>();
         DialogPane dialogPane = fxWeaver.loadView(EventDialogController.class);
         eventDialogController.loadExisting(event);
-        eventDialogController.setDialogPane(dialogPane);
-        eventDialogController.showAndWait();
+        eventDialog.setDialogPane(dialogPane);
+        eventDialog.showAndWait();
     }
 }

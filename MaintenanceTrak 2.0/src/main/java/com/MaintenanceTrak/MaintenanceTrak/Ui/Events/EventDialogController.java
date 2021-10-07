@@ -16,13 +16,16 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.Optional;
 
 @Component
-@FxmlView("/Equipment/addEquipmentDialog.fxml")
+@FxmlView("/Events/addEventDialog.fxml")
 public class EventDialogController {
     @Autowired
     EventRepository eventRepository;
+
+    @Autowired
+    EquipmentRepository equipmentRepository;
 
     private final FxWeaver fxWeaver;
 
@@ -39,32 +42,38 @@ public class EventDialogController {
     @FXML private Label lDatabaseId;
     //Dialog Buttons
     @FXML private Button submitButton;
-    @FXML private Button cancelButton;
+//    @FXML private Button cancelButton;
 
-    @FXML private void addEquipment(ActionEvent event) throws IOException {
-        EventsTableController eventsTable = fxWeaver.loadController(EventsTableController.class);
+    @FXML private void initialize() throws IOException {
+        EquipmentTableController equipmentTable = fxWeaver.loadController(EquipmentTableController.class);
+        cbEquipmentId.setItems(equipmentTable.getList());
+    }
+
+    @FXML private void addEvent(ActionEvent event) throws IOException {
+        EventTableController eventsTable = fxWeaver.loadController(EventTableController.class);
 
         Long id = null;
         MxEvent data;
 
         //Gets the user inputs from the dialog for the equipment constructors.
-        if(!lDatabaseId.getText().equals("")) {
-            id = Long.parseLong(lDatabaseId.getText().trim());
-        }
-        String equipmentId = cbEquipmentId.getSelectionModel().getSelectedItem().getEquipmentId();
+//        if(!lDatabaseId.getText().equals("")) {
+//            id = Long.parseLong(lDatabaseId.getText().trim());
+//        }
+        Long equipmentId = Long.parseLong(cbEquipmentId.getSelectionModel().getSelectedItem().getEquipmentId());
         String name = tfEventName.getText().trim();
-        LocalDate date = dDateOpened.getValue();
-        boolean deployed = cbDeployed.isSelected();
+        LocalDate dateOpened = dDateOpened.getValue();
+        String description = taDescription.getText().trim();
+        Optional<Equipment> equipment = equipmentRepository.findById(equipmentId);
         //If the ID is null a new equipment item is added to the database
         //otherwise the if the ID is not null that equipment item is updated in the database.
-        if(id != null){
-            data = new Equipment(id, equipmentId, name, equipmentLocation, deployed);
-        } else{
-            data = new Equipment(equipmentId, name, equipmentLocation, deployed);
-        }
+//        if(id != null){
+//            data = new MxEvent(name, description, dateOpened, equipment.get());
+//        } else{
+            data = new MxEvent(name, description, dateOpened, equipment.get());
+        //}
 
         eventRepository.save(data);
-        equipmentTable.loadEquipment();
+        eventsTable.loadEvent();
         closeStage();
     }
 
@@ -74,28 +83,25 @@ public class EventDialogController {
     }
 
     //Deletes the equipment item from the database
-    @FXML private void delete(ActionEvent event) throws IOException {
-        EquipmentTableController equipmentTable = fxWeaver.loadController(EquipmentTableController.class);
-        Long id = Long.parseLong(lDatabaseId.getText().trim());
-        equipmentRepository.deleteById(id);
-        equipmentTable.loadEquipment();
-        closeStage();
-    }
+//    @FXML private void delete(ActionEvent event) throws IOException {
+//        EventsTableController eventsTable = fxWeaver.loadController(EventsTableController.class);
+//        Long id = Long.parseLong(lDatabaseId.getText().trim());
+//        equipmentRepository.deleteById(id);
+//        eventsTable.loadEvent();
+//        closeStage();
+//    }
 
     //Loads an existing piece of equipment from the tableView.
-    @FXML public void loadExisting(Equipment equipment){
-        lDatabaseId.setText(String.valueOf(equipment.getId()));
-        tfEquipmentId.setText(equipment.getEquipmentId());
-        tfName.setText(equipment.getName());
-        tfEquipmentLocation.setText(equipment.getEquipmentLocation());
-        cbDeployed.setSelected(equipment.isDeployed());
-        deleteButton.setManaged(true);
-        deleteButton.setVisible(true);
+    @FXML public void loadExisting(MxEvent event){
+        lDatabaseId.setText(String.valueOf(event.getId()));
+        tfEventName.setText(event.getName());
+        taDescription.setText(event.getDescription());
+        dDateOpened.setValue(event.getDateOpened());
     }
 
     //Closes the dialog.
     private void closeStage() throws IOException {
-        Stage stage  = (Stage) addButton.getScene().getWindow();
+        Stage stage  = (Stage) submitButton.getScene().getWindow();
         stage.close();
     }
 

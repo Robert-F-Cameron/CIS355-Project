@@ -1,6 +1,7 @@
 package com.MaintenanceTrak.MaintenanceTrak.Backend.Entities;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -17,14 +18,14 @@ public class MxEvent {
     private String description;
 
     @Column(name = "dateOpened")
-    private Date dateOpened;
+    private LocalDate dateOpened;
 
     @ManyToOne
     @JoinColumn(name = "opened_by_user_id")
     private User openedBy;
 
     @Column(name = "dateClosed")
-    private Date dateClosed;
+    private LocalDate dateClosed;
 
     @ManyToOne
     @JoinColumn(name = "closed_by_user_id")
@@ -37,11 +38,18 @@ public class MxEvent {
     public MxEvent() {
     }
 
-    public MxEvent(String name, String description, Date dateOpened, User openedBy, Equipment equipment) {
+    public MxEvent(String name, String description, LocalDate dateOpened, User openedBy, Equipment equipment) {
         this.name = name;
         this.description = description;
         this.dateOpened = dateOpened;
         this.openedBy = openedBy;
+        this.equipment = equipment;
+    }
+
+    public MxEvent(String name, String description, LocalDate dateOpened, Equipment equipment) {
+        this.name = name;
+        this.description = description;
+        this.dateOpened = dateOpened;
         this.equipment = equipment;
     }
 
@@ -65,19 +73,19 @@ public class MxEvent {
         this.description = description;
     }
 
-    public Date getDateOpened() {
+    public LocalDate getDateOpened() {
         return dateOpened;
     }
 
-    public void setDateOpened(Date dateOpened) {
+    public void setDateOpened(LocalDate dateOpened) {
         this.dateOpened = dateOpened;
     }
 
-    public Date getDateClosed() {
+    public LocalDate getDateClosed() {
         return dateClosed;
     }
 
-    public void setDateClosed(Date dateClosed) {
+    public void setDateClosed(LocalDate dateClosed) {
         this.dateClosed = dateClosed;
     }
 

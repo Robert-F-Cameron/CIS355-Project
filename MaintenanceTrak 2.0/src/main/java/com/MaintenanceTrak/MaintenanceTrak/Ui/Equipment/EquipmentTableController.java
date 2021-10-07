@@ -81,10 +81,15 @@ public class EquipmentTableController {
     @FXML
     void handleEdit(Equipment equipment) throws IOException {
         EquipmentDialogController equipmentDialogController = fxWeaver.loadController(EquipmentDialogController.class);
-        Dialog<EquipmentDialogController> equipmentControllerDialog = new Dialog<>();
+        Dialog<EquipmentDialogController> equipmentDialog = new Dialog<>();
         DialogPane dialogPane = fxWeaver.loadView(EquipmentDialogController.class);
         equipmentDialogController.loadExisting(equipment);
-        equipmentControllerDialog.setDialogPane(dialogPane);
-        equipmentControllerDialog.showAndWait();
+        equipmentDialog.setDialogPane(dialogPane);
+        equipmentDialog.showAndWait();
+    }
+
+    @FXML
+    public ObservableList<Equipment> getList() {
+        return list;
     }
 }
