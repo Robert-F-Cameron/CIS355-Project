@@ -53,7 +53,7 @@ public class MxEvent {
         this.equipment = equipment;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

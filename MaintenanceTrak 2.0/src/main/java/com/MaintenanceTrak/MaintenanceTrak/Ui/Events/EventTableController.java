@@ -1,6 +1,7 @@
 package com.MaintenanceTrak.MaintenanceTrak.Ui.Events;
 
 
+import com.MaintenanceTrak.MaintenanceTrak.Backend.Entities.Equipment;
 import com.MaintenanceTrak.MaintenanceTrak.Backend.Entities.MxEvent;
 import com.MaintenanceTrak.MaintenanceTrak.Backend.Entities.User;
 import com.MaintenanceTrak.MaintenanceTrak.Backend.Repositories.EventRepository;
@@ -32,7 +33,7 @@ public class EventTableController {
     }
 
     @FXML private TableView<MxEvent> eventTableView;
-    @FXML private TableColumn<MxEvent, String> equipmentId;
+    @FXML private TableColumn<MxEvent, Equipment> equipmentId;
     @FXML private TableColumn<MxEvent, String> name;
     @FXML private TableColumn<MxEvent, String> description;
     @FXML private TableColumn<MxEvent, Date> dateOpened;
@@ -62,7 +63,7 @@ public class EventTableController {
             return row;
         });
         addEventButton.setTooltip(new Tooltip("Select to add new Event."));
-        equipmentId.setCellValueFactory(new PropertyValueFactory<MxEvent, String>("equipmentId"));
+        equipmentId.setCellValueFactory(new PropertyValueFactory<MxEvent, Equipment>("equipment").);
         name.setCellValueFactory(new PropertyValueFactory<MxEvent, String>("name"));
         description.setCellValueFactory(new PropertyValueFactory<MxEvent, String>("description"));
         dateOpened.setCellValueFactory(new PropertyValueFactory<MxEvent, Date>("dateOpened"));

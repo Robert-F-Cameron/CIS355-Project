@@ -51,15 +51,13 @@ public class EventDialogController {
 
     @FXML private void addEvent(ActionEvent event) throws IOException {
         EventTableController eventsTable = fxWeaver.loadController(EventTableController.class);
-
-        Long id = null;
         MxEvent data;
 
         //Gets the user inputs from the dialog for the equipment constructors.
 //        if(!lDatabaseId.getText().equals("")) {
 //            id = Long.parseLong(lDatabaseId.getText().trim());
 //        }
-        Long equipmentId = Long.parseLong(cbEquipmentId.getSelectionModel().getSelectedItem().getEquipmentId());
+        Long equipmentId = cbEquipmentId.getSelectionModel().getSelectedItem().getId();
         String name = tfEventName.getText().trim();
         LocalDate dateOpened = dDateOpened.getValue();
         String description = taDescription.getText().trim();
