@@ -39,6 +39,7 @@ public class EventDialogController {
     }
     //Input fields
     @FXML private ComboBox<Equipment> cbEquipmentId;
+    @FXML private Label lDatabaseId;
     @FXML private DatePicker dDateOpened;
     @FXML private TextField tfEventName;
     @FXML private TextArea taDescription;
@@ -48,6 +49,7 @@ public class EventDialogController {
         ObservableList<Equipment> equipment = FXCollections.observableArrayList();
         equipment.addAll(equipmentRepository.findAll());
         cbEquipmentId.setItems(equipment);
+        //This sets the Combo Box Equipment Objects to display just their name
         cbEquipmentId.setConverter(new StringConverter<Equipment>(){
 
             @Override
@@ -61,19 +63,30 @@ public class EventDialogController {
             }
 
         });
+        dDateOpened.setValue(LocalDate.now());
     }
 
     @FXML private void addEvent(ActionEvent event) throws IOException {
         EventTableController eventsTable = fxWeaver.loadController(EventTableController.class);
         MxEvent data;
+        Long id = null;
 
-
+        if(!lDatabaseId.getText().equals("")) {
+            id = Long.parseLong(lDatabaseId.getText().trim());
+        }
         Long equipmentId = cbEquipmentId.getSelectionModel().getSelectedItem().getId();
         String name = tfEventName.getText().trim();
         LocalDate dateOpened = dDateOpened.getValue();
         String description = taDescription.getText().trim();
         Optional<Equipment> equipment = equipmentRepository.findById(equipmentId);
-        data = new MxEvent(name, description, dateOpened, equipment.get());
+
+        if(id != null){
+            data = new MxEvent(id, name, description, dateOpened, equipment.get());
+        } else{
+            data = new MxEvent(name, description, dateOpened, equipment.get());
+        }
+
+
 
         eventRepository.save(data);
         eventsTable.loadEvent();
@@ -88,6 +101,7 @@ public class EventDialogController {
 
     //Loads an existing piece of equipment from the tableView.
     @FXML public void loadExisting(MxEvent event){
+        lDatabaseId.setText(String.valueOf(event.getId()));
         cbEquipmentId.setValue(event.getEquipment());
         tfEventName.setText(event.getName());
         taDescription.setText(event.getDescription());

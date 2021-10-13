@@ -3,23 +3,20 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<VBox fx:controller="com.MaintenanceTrak.MaintenanceTrak.Ui.Events.EventTableController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="800" prefHeight="600.0"
-      prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="800" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.MaintenanceTrak.MaintenanceTrak.Ui.Events.EventTableController">
     <ToolBar prefHeight="40.0" prefWidth="200.0">
-        <Button fx:id="addEventButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleAddEvent" prefHeight="25.0"
-                prefWidth="132.0" text="Add Event" textAlignment="CENTER"/>
+        <Button fx:id="addEventButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleAddEvent" prefHeight="25.0" prefWidth="132.0" text="Add Event" textAlignment="CENTER" />
     </ToolBar>
-    <TableView prefHeight="200.0" prefWidth="200.0" fx:id="eventTableView">
+    <TableView fx:id="eventTableView" prefHeight="200.0" prefWidth="200.0">
       <columns>
-          <TableColumn fx:id="eventId" text="Event Id" visible="false"/>
-          <TableColumn fx:id="equipmentId" text="Equipment Id"/>
-          <TableColumn fx:id="name" prefWidth="100.0" text="Name"/>
-          <TableColumn fx:id="description" prefWidth="100.0" text="Description"/>
-          <TableColumn fx:id="dateOpened" text="Date Opened"/>
-          <TableColumn fx:id="openedBy" prefWidth="75.0" text="Opened By"/>
-          <TableColumn fx:id="dateClosed" prefWidth="75.0" text="Date Closed"/>
-          <TableColumn fx:id="closedBy" prefWidth="75.0" text="Closed By"/>
+          <TableColumn fx:id="eventId" text="Event Id" visible="false" />
+          <TableColumn fx:id="equipmentId" text="Equipment" />
+          <TableColumn fx:id="name" prefWidth="110.0" text="Name" />
+          <TableColumn fx:id="description" prefWidth="250.0" text="Description" />
+          <TableColumn fx:id="dateOpened" minWidth="0.0" prefWidth="78.0" text="Date Opened" />
+          <TableColumn fx:id="openedBy" prefWidth="100.0" text="Opened By" />
+          <TableColumn fx:id="dateClosed" prefWidth="81.0" text="Date Closed" />
+          <TableColumn fx:id="closedBy" prefWidth="100.0" text="Closed By" />
       </columns>
     </TableView>
 </VBox>

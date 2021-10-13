@@ -66,7 +66,7 @@
                   <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
               </buttons>
             </ButtonBar>
-            <Label fx:id="eventId" layoutX="14.0" layoutY="192.0" text="eventId" visible="false"/>
+             <Label fx:id="lDatabaseId" managed="false" visible="false"/>
          </children></AnchorPane>
    </content>
 </DialogPane>

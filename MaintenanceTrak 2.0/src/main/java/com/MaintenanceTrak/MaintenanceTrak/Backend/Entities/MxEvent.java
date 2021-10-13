@@ -53,6 +53,14 @@ public class MxEvent {
         this.equipment = equipment;
     }
 
+    public MxEvent(Long id, String name, String description, LocalDate dateOpened, Equipment equipment) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.dateOpened = dateOpened;
+        this.equipment = equipment;
+    }
+
     public Long getId() {
         return id;
     }

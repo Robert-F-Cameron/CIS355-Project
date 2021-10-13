@@ -64,7 +64,6 @@ public class EventTableController {
             return row;
         });
         addEventButton.setTooltip(new Tooltip("Select to add new Event."));
-//        equipmentId.setCellValueFactory(new PropertyValueFactory<MxEvent, Equipment>("equipment"));
         equipmentId.setCellValueFactory(new PropertyValueFactory<MxEvent, Equipment>("equipmentName"));
         name.setCellValueFactory(new PropertyValueFactory<MxEvent, String>("name"));
         description.setCellValueFactory(new PropertyValueFactory<MxEvent, String>("description"));
