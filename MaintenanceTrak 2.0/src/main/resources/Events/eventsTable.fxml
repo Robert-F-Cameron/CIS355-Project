@@ -12,6 +12,7 @@
     </ToolBar>
     <TableView prefHeight="200.0" prefWidth="200.0" fx:id="eventTableView">
       <columns>
+          <TableColumn fx:id="eventId" text="Event Id" visible="false"/>
           <TableColumn fx:id="equipmentId" text="Equipment Id"/>
           <TableColumn fx:id="name" prefWidth="100.0" text="Name"/>
           <TableColumn fx:id="description" prefWidth="100.0" text="Description"/>

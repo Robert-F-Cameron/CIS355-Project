@@ -5,10 +5,13 @@ import com.MaintenanceTrak.MaintenanceTrak.Backend.Entities.MxEvent;
 import com.MaintenanceTrak.MaintenanceTrak.Backend.Repositories.EquipmentRepository;
 import com.MaintenanceTrak.MaintenanceTrak.Backend.Repositories.EventRepository;
 import com.MaintenanceTrak.MaintenanceTrak.Ui.Equipment.EquipmentTableController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,41 +37,43 @@ public class EventDialogController {
         this.fxWeaver = fxWeaver;
 
     }
-    //Text Input fields
+    //Input fields
     @FXML private ComboBox<Equipment> cbEquipmentId;
     @FXML private DatePicker dDateOpened;
     @FXML private TextField tfEventName;
     @FXML private TextArea taDescription;
-    @FXML private Label lDatabaseId;
-    //Dialog Buttons
     @FXML private Button submitButton;
-//    @FXML private Button cancelButton;
 
     @FXML private void initialize() throws IOException {
-        EquipmentTableController equipmentTable = fxWeaver.loadController(EquipmentTableController.class);
-        cbEquipmentId.setItems(equipmentTable.getList());
+        ObservableList<Equipment> equipment = FXCollections.observableArrayList();
+        equipment.addAll(equipmentRepository.findAll());
+        cbEquipmentId.setItems(equipment);
+        cbEquipmentId.setConverter(new StringConverter<Equipment>(){
+
+            @Override
+            public String toString(Equipment object) {
+                return object == null ? null : object.getName();
+            }
+
+            @Override
+            public Equipment fromString(String string) {
+                return cbEquipmentId.getItems().stream().filter(equipment -> equipment.getName().equals(string)).findAny().orElse(null);
+            }
+
+        });
     }
 
     @FXML private void addEvent(ActionEvent event) throws IOException {
         EventTableController eventsTable = fxWeaver.loadController(EventTableController.class);
         MxEvent data;
 
-        //Gets the user inputs from the dialog for the equipment constructors.
-//        if(!lDatabaseId.getText().equals("")) {
-//            id = Long.parseLong(lDatabaseId.getText().trim());
-//        }
+
         Long equipmentId = cbEquipmentId.getSelectionModel().getSelectedItem().getId();
         String name = tfEventName.getText().trim();
         LocalDate dateOpened = dDateOpened.getValue();
         String description = taDescription.getText().trim();
         Optional<Equipment> equipment = equipmentRepository.findById(equipmentId);
-        //If the ID is null a new equipment item is added to the database
-        //otherwise the if the ID is not null that equipment item is updated in the database.
-//        if(id != null){
-//            data = new MxEvent(name, description, dateOpened, equipment.get());
-//        } else{
-            data = new MxEvent(name, description, dateOpened, equipment.get());
-        //}
+        data = new MxEvent(name, description, dateOpened, equipment.get());
 
         eventRepository.save(data);
         eventsTable.loadEvent();
@@ -80,18 +85,10 @@ public class EventDialogController {
         closeStage();
     }
 
-    //Deletes the equipment item from the database
-//    @FXML private void delete(ActionEvent event) throws IOException {
-//        EventsTableController eventsTable = fxWeaver.loadController(EventsTableController.class);
-//        Long id = Long.parseLong(lDatabaseId.getText().trim());
-//        equipmentRepository.deleteById(id);
-//        eventsTable.loadEvent();
-//        closeStage();
-//    }
 
     //Loads an existing piece of equipment from the tableView.
     @FXML public void loadExisting(MxEvent event){
-        lDatabaseId.setText(String.valueOf(event.getId()));
+        cbEquipmentId.setValue(event.getEquipment());
         tfEventName.setText(event.getName());
         taDescription.setText(event.getDescription());
         dDateOpened.setValue(event.getDateOpened());

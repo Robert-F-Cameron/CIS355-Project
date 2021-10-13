@@ -27,9 +27,9 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <ComboBox prefWidth="143.0" GridPane.columnIndex="1" fx:id="cbEquipmentId"/>
+                  <ComboBox fx:id="cbEquipmentId" prefWidth="143.0" GridPane.columnIndex="1" />
                   <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="17.0" prefWidth="78.0" text="Equipment:" />
-                  <DatePicker GridPane.columnIndex="3" fx:id="dDateOpened"/>
+                  <DatePicker fx:id="dDateOpened" GridPane.columnIndex="3" />
                   <Label alignment="CENTER_RIGHT" text="Date Opened:" GridPane.columnIndex="2">
                   </Label>
                </children>
@@ -44,7 +44,7 @@
               </rowConstraints>
                <children>
                   <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="78.0" text="Event Name:" />
-                  <TextField prefHeight="25.0" prefWidth="644.0" GridPane.columnIndex="1" fx:id="tfEventName"/>
+                  <TextField fx:id="tfEventName" prefHeight="25.0" prefWidth="644.0" GridPane.columnIndex="1" />
                </children>
             </GridPane>
             <GridPane layoutX="14.0" layoutY="66.0" prefHeight="114.0" prefWidth="718.0">
@@ -57,15 +57,16 @@
               </rowConstraints>
                <children>
                   <Label text="Description:" />
-                  <TextArea prefHeight="89.0" prefWidth="713.0" GridPane.rowIndex="1" fx:id="taDescription" />
+                  <TextArea fx:id="taDescription" prefHeight="89.0" prefWidth="713.0" GridPane.rowIndex="1" />
                </children>
             </GridPane>
             <ButtonBar layoutX="532.0" layoutY="180.0" prefHeight="40.0" prefWidth="200.0">
               <buttons>
-                <Button mnemonicParsing="false" text="Submit" fx:id="submitButton" onAction="#addEvent" />
-                  <Button mnemonicParsing="false" text="Cancel" fx:id="cancelButton" onAction="#cancel" />
+                <Button fx:id="submitButton" mnemonicParsing="false" onAction="#addEvent" text="Submit" />
+                  <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
               </buttons>
             </ButtonBar>
+            <Label fx:id="eventId" layoutX="14.0" layoutY="192.0" text="eventId" visible="false"/>
          </children></AnchorPane>
    </content>
 </DialogPane>

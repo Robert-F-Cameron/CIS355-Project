@@ -109,6 +109,10 @@ public class MxEvent {
         return equipment;
     }
 
+    public String getEquipmentName() {
+        return equipment.getName();
+    }
+
     public void setEquipment(Equipment equipment) {
         this.equipment = equipment;
     }

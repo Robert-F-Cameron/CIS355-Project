@@ -33,7 +33,7 @@ public class EquipmentTableController {
     @FXML private TableColumn<Equipment, String> equipmentLocation;
     @FXML private TableColumn<Equipment, Boolean> deployed;
 
-    public ObservableList<Equipment> list = FXCollections.observableArrayList();
+    private final ObservableList<Equipment> equipment = FXCollections.observableArrayList();
 
     @FXML
     public Button button;
@@ -57,6 +57,7 @@ public class EquipmentTableController {
         });
         button.setTooltip(new Tooltip("Select to add new equipment."));
         equipmentId.setCellValueFactory(new PropertyValueFactory<Equipment, String>("equipmentId"));
+        equipmentId.setCellValueFactory(new PropertyValueFactory<Equipment, String>("equipmentId"));
         name.setCellValueFactory(new PropertyValueFactory<Equipment, String>("name"));
         equipmentLocation.setCellValueFactory(new PropertyValueFactory<Equipment, String>("equipmentLocation"));
         deployed.setCellValueFactory(new PropertyValueFactory<Equipment, Boolean>("deployed"));
@@ -64,18 +65,18 @@ public class EquipmentTableController {
     }
 
     @FXML void loadEquipment(){
-        list.removeAll();
+        equipment.removeAll();
         tableView.getItems().clear();
-        list.addAll(equipmentRepository.findAll());
-        tableView.setItems(list);
+        equipment.addAll(equipmentRepository.findAll());
+        tableView.setItems(equipment);
     }
 
     @FXML
     void handleAdd(ActionEvent event) throws IOException {
-        Dialog<EquipmentDialogController> equipmentControllerDialog = new Dialog<>();
+        Dialog<EquipmentDialogController> equipmentDialog = new Dialog<>();
         DialogPane dialogPane = fxWeaver.loadView(EquipmentDialogController.class);
-        equipmentControllerDialog.setDialogPane(dialogPane);
-        equipmentControllerDialog.showAndWait();
+        equipmentDialog.setDialogPane(dialogPane);
+        equipmentDialog.showAndWait();
     }
 
     @FXML
@@ -89,7 +90,7 @@ public class EquipmentTableController {
     }
 
     @FXML
-    public ObservableList<Equipment> getList() {
-        return list;
+    public ObservableList<Equipment> getEquipment() {
+        return equipment;
     }
 }
